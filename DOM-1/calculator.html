@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="first" placeholder="first number">
+        <input type="text" id="second" placeholder="second number">
+    </div>
+    <div>
+        <button onclick=add()>
+            add
+        </button>
+        <button onclick=subtract()>
+            subtract
+        </button>
+        <button onclick=multiply()>
+            multiply
+        </button>
+        <button onclick=divide()>
+            divide
+        </button>
+    </div>
+
+
+</body>
+
+<script>
+
+
+    function add() {
+        let fnumber = parseFloat(document.getElementById("first").value);
+        let snumber = parseFloat(document.getElementById("second").value);
+        alert("The addition is " + (fnumber + snumber));
+    }
+    function subtract() {
+        let fnumber = parseFloat(document.getElementById("first").value);
+        let snumber = parseFloat(document.getElementById("second").value);
+        alert("The Subtraction is " + (fnumber - snumber));
+    }
+    function multiply() {
+        let fnumber = parseFloat(document.getElementById("first").value);
+        let snumber = parseFloat(document.getElementById("second").value);
+        alert("The multiplication is " + (fnumber * snumber));
+    }
+    function divide() {
+        let fnumber = parseFloat(document.getElementById("first").value);
+        let snumber = parseFloat(document.getElementById("second").value);
+        alert("The division is " + (fnumber / snumber));
+    }
+
+
+</script>
+
+</html>
