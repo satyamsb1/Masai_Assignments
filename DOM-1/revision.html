@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capturing and Displaying Form Data</title>
+</head>
+
+<body>
+    <input type="text" id="myInput">
+    <button id="myButton">Submit</button>
+    <div id="output"></div>
+
+    <script>
+        const inputField = document.getElementById("myInput");
+        const submitButton = document.getElementById("myButton");
+        const outputDiv = document.getElementById("output");
+
+        submitButton.addEventListener("click", function () {
+            const inputValue = inputField.value;
+
+            alert("Entered Value: " + inputValue);
+
+            outputDiv.textContent = "Entered Value: " + inputValue;
+        });
+    </script>
+</body>
+
+</html>
