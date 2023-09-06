@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-between;
+            width: 50%;
+            margin: auto;
+        }
+
+        .min-score {
+            height: 100px;
+            width: 100px;
+            background-color: coral;
+            text-align: center;
+            padding: 20px;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .max-score {
+            height: 100px;
+            width: 100px;
+            background-color: cadetblue;
+            text-align: center;
+            padding: 20px;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .current-score {
+            height: 100px;
+            width: 100px;
+            background-color: grey;
+            position: relative;
+            top: 30px;
+            text-align: center;
+            padding: 20px;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        #button-container {
+            display: grid;
+            grid-template-rows: repeat(4, 50px);
+            grid-template-columns: repeat(3, 50px);
+            width: 40%;
+            margin: auto;
+            margin-top: 100px;
+            text-align: center;
+            padding-left: 180px;
+        }
+
+        #enter-button {
+            margin-left: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="min-score">45</div>
+        <div class="current-score"></div>
+        <div class="max-score">100</div>
+    </div>
+    <div id="button-container">
+        <button>0</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+    </div>
+    <button id="enter-button">Enter</button>
+</body>
+
+</html>
+<script>
+    let minScoreElement = document.querySelector(".min-score");
+    let maxScoreElement = document.querySelector(".max-score");
+    let currentScoreElement = document.querySelector(".current-score");
+    let numberButtons = document.querySelectorAll("#button-container > button");
+
+    for (let i = 0; i < numberButtons.length; i++) {
+        numberButtons[i].addEventListener("click", function () {
+            currentScoreElement.innerText += numberButtons[i].innerText;
+        });
+    }
+
+    let enterButton = document.querySelector("#enter-button");
+    enterButton.addEventListener("click", function () {
+        let currentScore = currentScoreElement.innerText;
+        if (Number(currentScore) < Number(minScoreElement.innerText)) {
+            if (currentScore !== "") {
+                minScoreElement.innerText = currentScore;
+            }
+        } else if (Number(currentScore) > Number(maxScoreElement.innerText)) {
+            maxScoreElement.innerText = currentScore;
+        }
+        currentScoreElement.innerText = "";
+    });
+</script>

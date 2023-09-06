@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Calculator</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="first" placeholder="first number">
+        <input type="text" id="second" placeholder="second number">
+    </div>
+    <div>
+        <button onclick="add()">Add</button>
+        <button onclick="subtract()">Subtract</button>
+        <button onclick="multiply()">Multiply</button>
+        <button onclick="divide()">Divide</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        function add() {
+            const fnumber = parseFloat(document.getElementById("first").value);
+            const snumber = parseFloat(document.getElementById("second").value);
+            const result = fnumber + snumber;
+            displayResult(result);
+        }
+
+        function subtract() {
+            const fnumber = parseFloat(document.getElementById("first").value);
+            const snumber = parseFloat(document.getElementById("second").value);
+            const result = fnumber - snumber;
+            displayResult(result);
+        }
+
+        function multiply() {
+            const fnumber = parseFloat(document.getElementById("first").value);
+            const snumber = parseFloat(document.getElementById("second").value);
+            const result = fnumber * snumber;
+            displayResult(result);
+        }
+
+        function divide() {
+            const fnumber = parseFloat(document.getElementById("first").value);
+            const snumber = parseFloat(document.getElementById("second").value);
+
+            if (snumber === 0) {
+                displayResult("Cannot divide by zero");
+            } else {
+                const result = fnumber / snumber;
+                displayResult(result);
+            }
+        }
+
+        function displayResult(result) {
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = "Result: " + result;
+        }
+    </script>
+</body>
+
+</html>
