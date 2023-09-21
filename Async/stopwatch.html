@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #stopwatch {
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+
+        #controls {
+            margin-top: 10px;
+        }
+
+        #start,
+        #pause,
+        #reset {
+            font-size: 1rem;
+            padding: 5px 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Stopwatch</h1>
+    <div id="stopwatch">00:00</div>
+    <div id="controls">
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+        <button id="reset">Reset</button>
+    </div>
+
+    <script>
+        let startTime = 0;
+        let intervalId = null;
+        let pausedTime = 0;
+        let isPaused = false;
+
+        const stopwatchElement = document.getElementById("stopwatch");
+        const startButton = document.getElementById("start");
+        const pauseButton = document.getElementById("pause");
+        const resetButton = document.getElementById("reset");
+
+        function formatTime(ms) {
+            const minutes = Math.floor(ms / 60000);
+            const seconds = ((ms % 60000) / 1000).toFixed(0);
+            return (minutes > 0 ? minutes + ":" : "") + (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        async function startStopwatch() {
+            while (!isPaused) {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                const currentTime = Date.now() - startTime + pausedTime;
+                stopwatchElement.textContent = formatTime(currentTime);
+            }
+        }
+
+        startButton.addEventListener("click", function () {
+            if (!intervalId) {
+                startTime = Date.now() - (startTime ? startTime : 0);
+                isPaused = false;
+                intervalId = startStopwatch();
+            }
+        });
+
+        pauseButton.addEventListener("click", function () {
+            if (intervalId) {
+                isPaused = true;
+                clearInterval(intervalId);
+                intervalId = null;
+                pausedTime += Date.now() - startTime;
+            }
+        });
+
+        resetButton.addEventListener("click", function () {
+            clearInterval(intervalId);
+            intervalId = null;
+            startTime = 0;
+            pausedTime = 0;
+            isPaused = false;
+            stopwatchElement.textContent = "00:00";
+        });
+    </script>
+</body>
+
+</html>
