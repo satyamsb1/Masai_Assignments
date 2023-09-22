@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Processing</title>
+    <style>
+        .processing-state {
+            display: none;
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .success-state,
+        .failure-state {
+            display: none;
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="processing-state" id="processingState">
+        <p>Processing your payment...</p>
+    </div>
+
+    <div class="success-state" id="successState">
+        <p>Payment successful!</p>
+    </div>
+
+    <div class="failure-state" id="failureState">
+        <p>Payment failed.</p>
+    </div>
+
+    <button id="startPayment">Start Payment</button>
+
+    <script>
+        document.getElementById("startPayment").addEventListener("click", () => {
+            showProcessingState();
+
+            simulatePayment()
+                .then(() => {
+                    showSuccessState();
+                })
+                .catch(() => {
+                    showFailureState();
+                });
+        });
+
+        function simulatePayment() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const isSuccess = Math.random() < 0.5;
+                    if (isSuccess) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                }, 3000);
+            });
+        }
+
+        function showProcessingState() {
+            document.getElementById("processingState").style.display = "block";
+        }
+
+        function showSuccessState() {
+            document.getElementById("processingState").style.display = "none";
+            document.getElementById("successState").style.display = "block";
+        }
+
+        function showFailureState() {
+            document.getElementById("processingState").style.display = "none";
+            document.getElementById("failureState").style.display = "block";
+        }
+    </script>
+</body>
+
+</html>

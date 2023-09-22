@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual McDonald's</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #orderFoodButton {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #foodImage {
+            display: none;
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        #orderId {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ffcc00;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Virtual McDonald's</h1>
+    <label>
+        <input type="checkbox" name="foodItem" value="Burger"> Burger
+    </label>
+    <label>
+        <input type="checkbox" name="foodItem" value="Fries"> Fries
+    </label>
+    <label>
+        <input type="checkbox" name="foodItem" value="Soda"> Soda
+    </label>
+    <br>
+    <button id="orderFoodButton">Order Food</button>
+    <div id="foodImage">
+        <img src="" alt="Food Item">
+    </div>
+    <div id="orderId"></div>
+
+    <script>
+        document.getElementById("orderFoodButton").addEventListener("click", () => {
+            const selectedItems = Array.from(document.querySelectorAll('input[name="foodItem"]:checked')).map(item => item.value);
+
+            if (selectedItems.length === 0) {
+                alert("Please select at least one food item.");
+                return;
+            }
+
+            document.getElementById("orderFoodButton").disabled = true;
+            document.getElementById("foodImage").style.display = "none";
+            document.getElementById("orderId").textContent = "Placing your order...";
+
+            placeOrder(selectedItems)
+                .then(orderDetails => {
+                    document.getElementById("orderId").textContent = `Order ID: ${orderDetails.orderId}`;
+                    document.getElementById("foodImage").innerHTML = `<img src="${orderDetails.foodImage}" alt="${orderDetails.foodItem}">`;
+                    document.getElementById("foodImage").style.display = "block";
+                    document.getElementById("orderFoodButton").disabled = false;
+                })
+                .catch(error => {
+                    console.error(error);
+                    document.getElementById("orderId").textContent = "Error placing order. Please try again.";
+                    document.getElementById("orderFoodButton").disabled = false;
+                });
+        });
+
+        function placeOrder(selectedItems) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const randomFoodIndex = Math.floor(Math.random() * selectedItems.length);
+                    const selectedFood = selectedItems[randomFoodIndex];
+                    const orderId = generateOrderId();
+                    const foodImage = `images/${selectedFood.toLowerCase()}.jpg`;
+
+                    resolve({ orderId, foodItem: selectedFood, foodImage });
+                }, getRandomProcessingTime());
+            });
+        }
+
+        function generateOrderId() {
+            return Math.floor(Math.random() * 10000);
+        }
+
+        function getRandomProcessingTime() {
+            return Math.floor(Math.random() * (10000 - 3000 + 1)) + 3000;
+        }
+    </script>
+</body>
+
+</html>
