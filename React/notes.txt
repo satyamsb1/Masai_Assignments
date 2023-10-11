@@ -1,0 +1,54 @@
+What is React?
+React is a JavaScript library for building user interfaces. Learn what React is all about on our homepage or in the tutorial.
+
+Who made React?
+React was made by Facebook developers.
+
+What is babel?
+- Parcel dont do this transpilation process on its own it takes help from "BABEL".
+		- Babel is a package it is bought into the project when we install parcel;
+		- JSX --> React code is done by babel.
+		- First the JSX is converted to the React.createElement, then this element is converted to the JS object and then rendered on to the browser as html element.
+		- Babel also transpiles the new code to the older versions of the code so the browsers who support older versions of JS can understand.
+		- In jsx to give a class then we have to use className="XYZ" not class="XYZ".
+
+How does Babel convert html code in React into valid code?
+Babel doesn't convert HTML code in React; it transpiles JSX code, a syntax extension for defining React components that resemble HTML, into JavaScript. JSX is transformed into JavaScript function calls, which React uses to create and manipulate actual HTML elements in the browser's DOM. Babel's role is to make JSX understandable by JavaScript, enabling React to efficiently render and update the user interface.
+
+What is ReactDOM used for? Write an example?
+ReactDOM is a package in React that provides methods for interacting with the Document Object Model (DOM). It's primarily used to render React components into the HTML document, update the DOM when the React component state or props change, and handle events in a React application.
+
+eg of ReactDOM
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Define a React component
+function MyComponent() {
+  return <h1>Hello, World!</h1>;
+}
+
+// Render the component into the HTML document
+ReactDOM.render(<MyComponent />, document.getElementById('root'));
+
+
+What are the packages that you need to import for react to work with?
+We need to import Parcel, react packages and also babel is a library which is imported along with the parcel also to manipulte reactdom we need to import ReactDOM
+
+How do you add react to a web application?
+First we need to create an react app by using command npx create react app app-name and start our application using npm start
+
+What is React.createElement?
+React.createElement is a fundamental method in React that is used to create and return React elements. React elements are lightweight representations of a DOM element or a user-defined component, which React uses to build and update the virtual DOM, ultimately leading to efficient rendering and updating of the actual DOM in a web application.
+
+What are the three properties that createElement accept?
+The three properties that createElement accepts are type, props and children
+
+
+What is the meaning of render and root?
+Render:
+
+In React, "render" refers to the process of converting a React element (or a tree of React elements) into a format that can be displayed on the screen. This process involves updating the virtual DOM (a lightweight representation of the actual DOM) and, if necessary, making changes to the real DOM in a way that efficiently reflects the changes in your application's user interface. The rendering process is what allows React to efficiently update only the parts of the UI that have changed, rather than re-rendering the entire page.
+
+Root:
+
+In React, "root" typically refers to the DOM element where your React application is mounted or inserted into the HTML document. It's the starting point where your React component tree is attached to the actual DOM. You identify the root element by its id, class, or other selector, and this is where you use ReactDOM.render to render your top-level React component.

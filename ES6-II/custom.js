@@ -60,3 +60,4 @@ function Stack() {
   myStack.printReverse();
   console.log(myStack.s);
   
+  
