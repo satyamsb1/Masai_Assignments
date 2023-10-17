@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Movie Search</title>
+</head>
+
+<body>
+  <input type="text" id="searchInput" placeholder="Search for a movie">
+  <button id="searchButton">Search</button>
+  <div id="movieResults"></div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const movieResults = document.getElementById('movieResults');
+
+    function debounce(func, delay) {
+      let timeout;
+      return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(context, args);
+        }, delay);
+      };
+    }
+
+    function fetchMovies(query) {
+      const apiKey = 'd314a06';
+      const apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+
+          displayMovieResults(data);
+        })
+        .catch(error => {
+          console.error('Error fetching movie data:', error);
+        });
+    }
+
+    function displayMovieResults(data) {
+
+      movieResults.innerHTML = '';
+
+
+      if (data.Search) {
+        data.Search.forEach(movie => {
+          const movieTitle = document.createElement('p');
+          movieTitle.textContent = movie.Title;
+          movieResults.appendChild(movieTitle);
+        });
+      } else {
+        movieResults.textContent = 'No results found';
+      }
+    }
+
+    const debouncedFetchMovies = debounce(fetchMovies, 300);
+
+    searchInput.addEventListener('input', function () {
+      debouncedFetchMovies(this.value);
+    });
+
+    searchButton.addEventListener('click', function () {
+
+      debouncedFetchMovies(searchInput.value);
+    });
+  </script>
+</body>
+
+</html>

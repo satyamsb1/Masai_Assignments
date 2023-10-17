@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recipe Search</title>
+</head>
+
+<body>
+    <input type="text" id="recipeSearchInput" placeholder="Search for a recipe">
+    <button id="searchButton">Search</button>
+    <div id="recipeResults"></div>
+
+    <script>
+        const recipeSearchInput = document.getElementById('recipeSearchInput');
+        const searchButton = document.getElementById('searchButton');
+        const recipeResults = document.getElementById('recipeResults');
+
+        function throttle(func, limit) {
+            let inThrottle;
+            return function () {
+                const context = this;
+                const args = arguments;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => (inThrottle = false), limit);
+                }
+            };
+        }
+
+        function fetchRecipes(query) {
+            const apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    displayRecipeResults(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching recipe data:', error);
+                });
+        }
+
+        function displayRecipeResults(data) {
+            recipeResults.innerHTML = '';
+
+            if (data.meals) {
+                data.meals.forEach(recipe => {
+                    const recipeTitle = document.createElement('p');
+                    recipeTitle.textContent = recipe.strMeal;
+                    recipeResults.appendChild(recipeTitle);
+                });
+            } else {
+                recipeResults.textContent = 'No results found';
+            }
+        }
+
+        const throttledFetchRecipes = throttle(fetchRecipes, 300);
+
+        recipeSearchInput.addEventListener('input', function () {
+            throttledFetchRecipes(this.value);
+        });
+
+        searchButton.addEventListener('click', function () {
+            throttledFetchRecipes(recipeSearchInput.value);
+        });
+    </script>
+</body>
+
+</html>
