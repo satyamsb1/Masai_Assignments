@@ -1,25 +1,24 @@
-import TodoItem from "./TodoItem";
-function TodoList({tasks}){
-    return (
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-       
+import TodoItem from "./TodoItem"
 
-        <tbody>
-            {
-                tasks.map((task)=>(
-                    <TodoItem key={task.id} data={task} />
+import "./styles.css";
 
-            ))
-            }
-        </tbody>
-        </table>
-    )
+function TodoList({ tasks }) {
+  return (
+    <table className="todo-list">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {tasks.map((task) => (
+          <TodoItem key={task.id} data={task} />
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
 export default TodoList;
