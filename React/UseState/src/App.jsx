@@ -1,10 +1,10 @@
 // import Button from "./components/Button";
-import Input from "./components/Input";
+import Todo from "./components/Todo";
 
 function App() {
   return (
     <>
-      <Input/>
+      <Todo/>
     </>
   );
 }
